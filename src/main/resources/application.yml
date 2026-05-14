@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: igorblazhko-booking-system
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/booking_db}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:123}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+server:
+  port: ${SERVER_PORT:8080}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+logging:
+  level:
+    root: INFO
+    com.igorblazhko.booking: INFO
+    org.springframework.security: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n"
+
+igorblazhko:
+  jwt:
+    secret: ${JWT_SECRET:change-this-secret-key-to-at-least-32-characters}
+    expiration-ms: ${JWT_EXPIRATION_MS:86400000}
+  file-storage:
+    upload-dir: ${FILE_UPLOAD_DIR:uploads}
